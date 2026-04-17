@@ -8,6 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth, googleProvider } from "./firebase";
+import ilu from '../assets/mi_ilu.png';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -217,7 +218,7 @@ function App() {
     <div className="page-shell">
       <main className="container">
         <div className="mi-ilu-container">
-          <img src="/mi_ilu.png" alt="MI Illustration" className="mi-ilu" />
+          <img src={ilu} alt="MI Illustration" className="mi-ilu" />
         </div>
         <section className="user-bar">
           <p>
