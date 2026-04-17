@@ -167,7 +167,7 @@ function App() {
       <div className="page-shell">
         <main className="container">
           <div className="mi-ilu-container">
-            <img src="/mi_ilu.png" alt="MI Illustration" className="mi-ilu" />
+            <img src={ilu} alt="MI Illustration" className="mi-ilu" />
           </div>
           <section className="hero-card auth-card">
             <p className="eyebrow">Student Portal</p>
