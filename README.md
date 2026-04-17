@@ -17,7 +17,7 @@ Student-facing portal to login and download certificates mapped to the logged-in
 
 For analytics, also enable Google Analytics in your Firebase project and add measurement ID.
 
-The app expects user backend at `http://localhost:6001`.
+The app expects the unified backend at `http://localhost:5000`.
 
 ## Firebase Env Keys
 

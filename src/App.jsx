@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "./api/axios";
+import { API_ENDPOINTS, withId } from "./api/endpoints";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -98,7 +99,7 @@ function App() {
     setLoading(true);
     try {
       const token = await authUser.getIdToken();
-      const res = await api.get("/certificates/me", {
+      const res = await api.get(API_ENDPOINTS.CERTIFICATES_ME, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -118,13 +119,10 @@ function App() {
   const handleDownload = async (entryId) => {
     try {
       const token = await auth.currentUser?.getIdToken();
-      const res = await api.get(
-        `/certificates/download/${encodeURIComponent(entryId)}`,
-        {
-          responseType: "blob",
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        }
-      );
+      const res = await api.get(withId(API_ENDPOINTS.CERTIFICATES_DOWNLOAD, entryId), {
+        responseType: "blob",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
 
       const blobUrl = window.URL.createObjectURL(
         new Blob([res.data], { type: "application/pdf" })
