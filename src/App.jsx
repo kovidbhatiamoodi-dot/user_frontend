@@ -3,7 +3,6 @@ import api from "./api/axios";
 import { API_ENDPOINTS, withId } from "./api/endpoints";
 import {
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -13,8 +12,6 @@ import ilu from '../assets/mi_ilu.png';
 function App() {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [authSubmitting, setAuthSubmitting] = useState(false);
 
@@ -36,37 +33,11 @@ function App() {
   const getAuthMessage = (err) => {
     const code = err?.code || "";
     const messages = {
-      "auth/invalid-email": "Please enter a valid email address",
-      "auth/user-not-found": "No account found with this email",
-      "auth/wrong-password": "Incorrect password",
-      "auth/invalid-credential": "Invalid email or password",
-      "auth/email-already-in-use": "Email is already registered",
-      "auth/weak-password": "Password must be at least 6 characters",
       "auth/popup-closed-by-user": "Google login popup was closed",
       "auth/network-request-failed": "Network error. Please try again",
     };
 
     return messages[code] || "Authentication failed. Please try again";
-  };
-
-  const handleEmailAuth = async (e) => {
-    e.preventDefault();
-    setAuthError("");
-
-    if (!email.trim() || !password.trim()) {
-      setAuthError("Please fill email and password");
-      return;
-    }
-
-    setAuthSubmitting(true);
-    try {
-      await signInWithEmailAndPassword(auth, email.trim(), password);
-      setPassword("");
-    } catch (err) {
-      setAuthError(getAuthMessage(err));
-    } finally {
-      setAuthSubmitting(false);
-    }
   };
 
   const handleGoogleLogin = async () => {
@@ -170,33 +141,11 @@ function App() {
             <img src={ilu} alt="MI Illustration" className="mi-ilu" />
           </div>
           <section className="hero-card auth-card">
-            <p className="eyebrow">Student Portal</p>
+            <p className="eyebrow">Certificate Portal</p>
             <h1>Login to continue</h1>
             <p className="subtitle">
-              Sign in with email/password or continue with your Google account.
+              Sign in with your Google account.
             </p>
-
-            <form onSubmit={handleEmailAuth} className="auth-form">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email address"
-                className="mi-input"
-                autoComplete="email"
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="mi-input"
-                autoComplete="current-password"
-              />
-              <button type="submit" className="search-btn" disabled={authSubmitting}>
-                {authSubmitting ? "Please wait..." : "Login"}
-              </button>
-            </form>
 
             <button
               type="button"

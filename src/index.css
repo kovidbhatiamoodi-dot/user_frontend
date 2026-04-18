@@ -139,8 +139,8 @@ h1 {
   height: 46px;
   border-radius: 12px;
   border: 1px solid rgba(141, 170, 234, 0.4);
-  background: rgba(8, 12, 22, 0.7);
-  color: #f2f6ff;
+  background: #ffd700;
+  color: #061022;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
